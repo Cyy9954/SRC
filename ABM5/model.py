@@ -10,8 +10,10 @@ import math
 import matplotlib.pyplot as plt
 import operator
 import time
-import agentframework as af
+import my_modules.agentframework as af
+import my_modules.io as io
 
+n_cols, n_rows, environment = io.read_data()
 def get_distance(x0, y0, x1, y1):
     # Calculate the difference in the x coordinates.
     dx = x0 - x1
@@ -49,6 +51,7 @@ def get_min_distance():
             #print("min_distance", min_distance)
     return min_distance
 
+
 # Change x0 and y0 randomly
 '''def movement(list1):
     rn = random.random()
@@ -71,6 +74,10 @@ random.seed(0)
 # A variable to store the number of agents
 n_agents = 10
 
+#Create a new outer For Loop to loop through moving agents n_iteration times. 
+#An outer loop is wanted rather than an inner loop as in each iteration we want each agents to move in turn. 
+n_iterations=100
+
 # Initialise agents
 
 #a = af.Agent()
@@ -79,59 +86,51 @@ n_agents = 10
 agents = []
 for i in range(n_agents):
     # Create an agent
-    agents.append(af.Agent(i))
+    agents.append(af.Agent( i, environment, n_rows, n_cols))
     print(agents[i])
 print(agents)
-
-
-# Move agents
-for i in range(n_agents):
-    # Change agents[i] coordinates randomly
-    # x-coordinate
-    rn = random.random()
-    #print("rn", rn)
-    if rn < 0.5:
-        agents[i].x = agents[i].x + 1
-    else:
-        agents[i].x = agents[i].x - 1
-    # y-coordinate
-    rn = random.random()
-    #print("rn", rn)
-    if rn < 0.5:
-        agents[i].y = agents[i].y + 1
-    else:
-        agents[i].y = agents[i].y - 1
-print(agents)
-
-
-# A variable to store the number of agents
-#n_agents = 500
-
 
 # Variables for constraining movement.
 # The minimum x coordinate.
 x_min = 0
 # The minimum y coordinate.
 y_min = 0
+'''
 # The maximum x coordinate.
 x_max = 99
 # The maximum y coordinate.
 y_max = 99
-# Apply movement constraints.
 '''
-n_agents = 10
-agents = []
-for i in range(n_agents): 
-    agents.append([random.randint(0, 99), random.randint(0, 99)])
-for i in range(n_agents):
-    plt.scatter(agents[i][0], agents[i][1], color='black')    
-plt.show()    
-    '''
-n_iterations=10
+# Apply movement constraints.
+# The maximum an agents x coordinate is allowed to be.
+x_max = n_cols - 1
+# The maximum an agents y coordinate is allowed to be.
+#y_max = 99
+y_max = n_rows - 1
+
+
+# Move agents      
 for i in range(n_iterations):
     for j in range(len(agents)):
-        agents[j] = agents[j].move(x_min, y_min, x_max, y_max) 
-        
+        agents[j] = agents[j].move(x_min, y_min, x_max, y_max)
+        agents[j].eat()
+'''   
+        #print("rn", rn)
+        if rn < 0.5:
+            agents[i].x = agents[i].x + 1
+        else:
+            agents[i].x = agents[i].x - 1
+        # y-coordinate
+        rn = random.random()
+        #print("rn", rn)
+        if rn < 0.5:
+            agents[i].y = agents[i].y + 1
+        else:
+            agents[i].y = agents[i].y - 1
+    print(agents)
+'''
+plt.imshow(environment)
+
 # Plot
 for i in range(n_agents):
     plt.scatter(agents[i].x, agents[i].y, color='black')
@@ -148,4 +147,22 @@ plt.scatter(ly.x, ly.y, color='yellow')
 sy = min(agents, key=operator.attrgetter('y'))
 plt.scatter(sy.x, sy.y, color='green')
 
+# A variable to store the number of agents
+#n_agents = 500
+
+plt.ylim(y_max / 3, y_max * 2 / 3)
+plt.xlim(x_max / 3, x_max * 2 / 3)
+'''
+plt.ylim(y_min, y_max)
+plt.xlim(x_min, x_max) 
+'''
 plt.show()
+  
+
+
+
+
+
+
+
+
