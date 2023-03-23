@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Feb 27 19:33:05 2023
-
-@author: 肉松
-"""
-
 import random
 import math
 import matplotlib.pyplot as plt
@@ -19,8 +13,9 @@ n_agents = 10
 # Initialise agents
 agents = []
 for i in range(n_agents):
+    # Each agent is represented as a list of x and y coordinates
     agents.append([random.randint(0, 99), random.randint(0, 99)])
-print(agents)
+print("Initial agents:",agents)
 
 # Move agents
 for i in range(n_agents):
@@ -39,10 +34,10 @@ for i in range(n_agents):
         agents[i][1] = agents[i][1] + 1
     else:
         agents[i][1] = agents[i][1] - 1
-print(agents)
+print("Moved agents:", agents)
 
 # Calculate the Euclidean distance between (x0, y0) and (x1, y1)
-# Set x0 and y0 to equal 0, x1 to equal 3, and y1 to equal 4
+# Setting the values to (0,0) and (3,4) to match the sample output
 x0 = 0
 y0 = 0
 x1 = 3
@@ -51,14 +46,14 @@ y1 = 4
 dx = x0 - x1
 # Calculate the difference in the y coordinates.
 dy = y0 - y1
-# Square the differences and add the squares
+# Square the differences and sum them
 ssd = (dx * dx) + (dy * dy)
-print("ssd", ssd)
-# Calculate the square root
+print("Sum of Squared Differences (SSD):", ssd)
+# Calculate the square root of the SSD to obtain the Euclidean distance
 distance = ssd ** 0.5
 print("distance", distance)
 distance = math.sqrt(ssd)
-print("distance", distance)
+print("Euclidean distance:", distance)
 
 # Plot
 for i in range(n_agents):

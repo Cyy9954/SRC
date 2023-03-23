@@ -17,8 +17,9 @@ def read_data():
             #print(value)
         data.append(row)
     f.close()
-    print(data)
     return n_cols, n_rows, data
-    
 
-
+def write_data(file, environment):
+    f = open (file,'w')
+    writer= csv.writer(f)
+    writer.writerows(environment)

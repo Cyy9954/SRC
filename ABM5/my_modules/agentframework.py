@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Feb 27 19:43:06 2023
-
-@author: 肉松
-"""
 
 import random
 
@@ -17,25 +12,7 @@ class Agent:
     '''
      
     def __init__(self, i, environment, n_rows, n_cols):
-        """
-The constructor method.
 
-Parameters
-----------
-i : Integer
-    To be unique to each instance.
-environment : List
-    A reference to a shared environment
-n_rows : Integer
-    The number of rows in environment.
-n_cols : Integer
-    The number of columns in environment.
-
-Returns
--------
-None.
-
-"""
         self.i = i
         self.environment = environment
         self.x = random.randint(n_cols/3 - 1, 2 * n_cols / 3)
@@ -50,13 +27,18 @@ None.
             self.store += self.environment[self.y][self.x]
             self.environment[self.y][self.x] = 0
             
-            
+ # Define the string representation for Agent instances.           
     def __str__(self):
+        # Return the class name and the agent's x and y coordinates as a string.
         return self.__class__.__name__ + "(x=" + str(self.x) \
         + ", y=" + str(self.y) + ")"+ str(self.i)
     
+    
+# Define the representation method for Agent instances.
     def __repr__(self):
+    # Return the string representation of the agent.
         return str(self)
+    
     def move(self, x_min, y_min, x_max, y_max):
         rn = random.random()
         if rn < 0.5:
@@ -77,9 +59,6 @@ None.
         if self.y > y_max:
             self.y = y_max
         return self  
-    
-        
-
 
 
 

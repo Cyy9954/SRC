@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Mar 15 10:35:11 2023
-
-@author: 肉松
-"""
 
 import csv
 

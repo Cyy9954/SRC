@@ -12,6 +12,9 @@ import operator
 import time
 import agentframework as af
 
+# Set the pseudo-random seed for reproducibility
+random.seed(0)
+
 def get_distance(x0, y0, x1, y1):
     # Calculate the difference in the x coordinates.
     dx = x0 - x1
@@ -30,7 +33,8 @@ def get_max_distance(agents):
         for j in range(i + 1, len(agents)):
             #print("i", i, "j", j)
             b = agents[j]
-            distance = get_distance(a.x, a.y, b.x, b.y)
+            distance = get_distance(a.x, a.y, agents[j].x, agents[j].y)
+            #distance = get_distance(a.x, a.y, b.x, b.y)
             #print("distance between", a, b, distance)
             max_distance = max(max_distance, distance)
             #print("max_distance", max_distance)
@@ -43,94 +47,57 @@ def get_min_distance():
         for j in range(i + 1, len(agents)):
             #print("i", i, "j", j)
             b = agents[j]
-            distance = get_distance(a.x, a.y, b.x, b.y)
+            distance = get_distance(a.x, a.y, agents[j].x, agents[j].y)
+            #distance = get_distance(a.x, a.y, b.x, b.y)
             #print("distance between", a, b, distance)
             min_distance = min(min_distance, distance)
             #print("min_distance", min_distance)
     return min_distance
 
-# Change x0 and y0 randomly
-'''def movement(list1):
-    rn = random.random()
-    if rn < 0.5:
-       list1[0] = list1[0] + 1
-    else:
-        list1[0] = list1[0] - 1
-    rn = random.random()
-    if rn < 0.5:
-        list1[1] = list1[1] + 1
-    else:
-        list1[1] = list1[1] - 1
-    
-    return list1
-'''
-# Set the pseudo-random seed for reproducibility
-random.seed(0)
-
 
 # A variable to store the number of agents
 n_agents = 10
 
-# Initialise agents
+#Create a list to store agents
+agents = [af.Agent(i) for i in range(n_agents)]
 
-#a = af.Agent()
-#print("type(a)", type(a))
-
+'''#Create an empty list to store agents
 agents = []
 for i in range(n_agents):
     # Create an agent
     agents.append(af.Agent(i))
     print(agents[i])
 print(agents)
-
+'''
 
 # Move agents
-for i in range(n_agents):
-    # Change agents[i] coordinates randomly
+for agent in agents:
+    # Change agent coordinates randomly
     # x-coordinate
     rn = random.random()
-    #print("rn", rn)
     if rn < 0.5:
-        agents[i].x = agents[i].x + 1
+        agent.x += 1
     else:
-        agents[i].x = agents[i].x - 1
+        agent.x -= 1
     # y-coordinate
     rn = random.random()
-    #print("rn", rn)
     if rn < 0.5:
-        agents[i].y = agents[i].y + 1
+        agent.y += 1
     else:
-        agents[i].y = agents[i].y - 1
-print(agents)
-
-
-# A variable to store the number of agents
-#n_agents = 500
+        agent.y -= 1
 
 
 # Variables for constraining movement.
 # The minimum x coordinate.
-x_min = 0
-# The minimum y coordinate.
-y_min = 0
+x_min, y_min = 0, 0
 # The maximum x coordinate.
-x_max = 99
-# The maximum y coordinate.
-y_max = 99
+x_max, y_max = 99, 99
+
 # Apply movement constraints.
-'''
-n_agents = 10
-agents = []
-for i in range(n_agents): 
-    agents.append([random.randint(0, 99), random.randint(0, 99)])
-for i in range(n_agents):
-    plt.scatter(agents[i][0], agents[i][1], color='black')    
-plt.show()    
-    '''
 n_iterations=10
 for i in range(n_iterations):
-    for j in range(len(agents)):
-        agents[j] = agents[j].move(x_min, y_min, x_max, y_max) 
+    for agent in agents:
+        agent.move(x_min, y_min, x_max, y_max) 
         
 # Plot
 for i in range(n_agents):

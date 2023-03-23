@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Mar 15 10:33:09 2023
-
-@author: 肉松
-"""
-
 import random
 import math
 import matplotlib.pyplot as plt
@@ -15,13 +9,21 @@ import my_modules.io as io
 import os
 import imageio
 
+# read environment data
+n_cols, n_rows, environment = io.read_data()
 
+# Set the pseudo-random seed for reproducibility
+random.seed(0)
+
+# calculates the total store value across all agents.
+# It initializes a variable "sum_store" to zero and then loops through each agent in the "agents" list
 def sum_agent_stores(agents):
     sum_store=0
     for i in range(len(agents)):
         sum_store+=agents[i].store
     return sum_store
 
+# the largest and smallest x and y values using different colors.
 def sum_environment(environment):
     sum_env=0
     for a in range(len(environment)):
@@ -29,7 +31,6 @@ def sum_environment(environment):
             sum_env +=environment[a][j]
     return sum_env
 
-n_cols, n_rows, environment= io.read_data()
 def get_distance(x0, y0, x1, y1):
     # Calculate the difference in the x coordinates.
     dx = x0 - x1
@@ -68,65 +69,24 @@ def get_min_distance():
     return min_distance
 
 if __name__ == '__main__':
-    # Change x0 and y0 randomly
-    '''def movement(list1):
-        rn = random.random()
-        if rn < 0.5:
-           list1[0] = list1[0] + 1
-        else:
-            list1[0] = list1[0] - 1
-        rn = random.random()
-        if rn < 0.5:
-            list1[1] = list1[1] + 1
-        else:
-            list1[1] = list1[1] - 1
-        
-        return list1
-    '''
-    # Set the pseudo-random seed for reproducibility
-    random.seed(0)
 
     # A variable to store the number of agents
     n_agents = 10
-
-    #Create a new outer For Loop to loop through moving agents n_iteration times. 
-    #An outer loop is wanted rather than an inner loop as in each iteration we want each agents to move in turn. 
+    
+    # Number of iterations
     n_iterations=100
-
-    # Initialise agents
-
-    #a = af.Agent()
-    #print("type(a)", type(a))
-
+    
+    #creat agents
     agents = []
     for i in range(n_agents):
-        # Create an agent
+    # Create an agent and add it to the list of agents
         agents.append(af.Agent(agents, i, environment, n_rows, n_cols))
-        print(agents[i])
-    print(agents)
 
-    # Variables for constraining movement.
-    # The minimum x coordinate.
-    x_min = 0
-    # The minimum y coordinate.
-    y_min = 0
-    # def 
-    neighbourhood=50
-
-    '''
-    # The maximum x coordinate.
-    x_max = 99
-    # The maximum y coordinate.
-    y_max = 99
-    '''
-    # Apply movement constraints.
-    # The maximum an agents x coordinate is allowed to be.
-    x_max = n_cols - 1
-    # The maximum an agents y coordinate is allowed to be.
-    #y_max = 99
-    y_max = n_rows - 1
-
-    # Create directory to write images to.
+    # Variables for constraining movement
+    x_min, y_min, neighbourhood = 0, 0, 50
+    x_max, y_max = n_cols - 1, n_rows - 1
+    
+    # Create directory to store output images
     try:
         os.makedirs('../../data/output/images/')
     except FileExistsError:
@@ -142,20 +102,21 @@ if __name__ == '__main__':
         print("Iteration", ite)
         # Move agents
         print("Move")
+        #move eat
         for i in range(n_agents):
             agents[i].move(x_min, y_min, x_max, y_max)
             agents[i].eat()
-            #print(agents[i])
-        # Share store
-        # Distribute shares
+            
+        # Share stores among neighboring agents
         for i in range(n_agents):
             agents[i].share(neighbourhood)
-        # Add store_shares to store and set store_shares back to zero
+        # Update agents' stores and reset store_shares to zero
         for i in range(n_agents):
             print(agents[i])
             agents[i].store = agents[i].store_shares
             agents[i].store_shares = 0
         print(agents)
+        
         # Print the maximum distance between all the agents
         print("Maximum distance between all the agents", get_max_distance(agents))
         # Print the total amount of resource
@@ -182,29 +143,17 @@ if __name__ == '__main__':
         sy = min(agents, key=operator.attrgetter('y'))
         plt.scatter(sy.x, sy.y, color='green')
 
-        # A variable to store the number of agents
-        #n_agents = 500
-
+       
+        #Define the size of the graph
         plt.ylim(y_max / 3, y_max * 2 / 3)
         plt.xlim(x_max / 3, x_max * 2 / 3)
-        '''
-        plt.ylim(y_min, y_max)
-        plt.xlim(x_min, x_max) 
-        '''
+        
         filename = '../../data/output/images/image' + str(ite) + '.png'
     #filename = '../../data/output/images/image' + str(ite) + '.gif'
         plt.savefig(filename)
         plt.show()
         plt.close()
         images.append(imageio.imread(filename))
-          
-        imageio.mimsave('../../data/output/out.gif', images, fps=3)
-        print("1")
-
-
-
-
-
-
-
-
+        
+        #Generate animation
+    imageio.mimsave('../../data/output/out.gif', images, fps=3)

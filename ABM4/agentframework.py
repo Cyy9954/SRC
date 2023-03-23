@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Feb 27 19:43:06 2023
-
-@author: 肉松
-"""
 
 import random
 
@@ -13,13 +8,18 @@ class Agent:
         self.x = random.randint(0, 99)
         self.y = random.randint(0, 99)
         pass
-
+    
+# Define the string representation for Agent instances.
     def __str__(self):
+        # Return the class name and the agent's x and y coordinates as a string.
         return self.__class__.__name__ + "(x=" + str(self.x) \
         + ", y=" + str(self.y) + ")"+ str(self.i)
     
+# Define the representation method for Agent instances.
     def __repr__(self):
+    # Return the string representation of the agent.
         return str(self)
+    
     def move(self, x_min, y_min, x_max, y_max):
         rn = random.random()
         if rn < 0.5:

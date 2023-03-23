@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 import random
-import my_modules.geometry
-
-class Agent:       
-    
+import my_module.geometry
+class Agent:
+ 
     def __init__(self, agents, i, environment, n_rows, n_cols):
-
+  
         self.agents = agents
         self.i = i
         self.environment = environment
@@ -13,10 +12,10 @@ class Agent:
         self.x = random.randint(tnc - 1, (2 * tnc) - 1)
         tnr = int(n_rows / 3)
         self.y = random.randint(tnr - 1, (2 * tnr) - 1)
-        self.store = random.randint(0,99)
+        self.store = random.randint (0,99)
         self.store_shares = 0
-
-#Describes how the agent eats from the environment, storing food in its store property.        
+        
+#Describes how the agent eats from the environment, storing food in its store property.         
     def eat(self):
         if self.environment[self.y][self.x] >= 10:
             self.environment[self.y][self.x] -= 10
@@ -27,18 +26,18 @@ class Agent:
         if self.store >= 100:
            self.environment[self.y][self.x] += self.store/2
            self.store -= self.store/2
-              
- # Define the string representation for Agent instances.           
+            
+ # Define the string representation for Agent instances.               
     def __str__(self):
         # Return the class name and the agent's x and y coordinates as a string.
         return self.__class__.__name__ + "(x=" + str(self.x) \
         + ", y=" + str(self.y) + ")"+ str(self.i)
-     
+    
 # Define the representation method for Agent instances.
     def __repr__(self):
     # Return the string representation of the agent.
         return str(self)
-    
+     
     def move(self, x_min, y_min, x_max, y_max):
         rn = random.random()
         if rn < 0.5:

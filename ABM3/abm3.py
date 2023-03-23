@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Feb 27 19:42:19 2023
-
-@author: 肉松
-"""
 
 import random
 import math
@@ -13,9 +8,6 @@ import time
 
 # Set the pseudo-random seed for reproducibility
 random.seed(0)
-
-# A variable to store the number of agents
-#n_agents = 500
 
 def get_distance(x0, y0, x1, y1):
     # Calculate the difference in the x coordinates.
@@ -72,6 +64,7 @@ def movement(list1):
 # A list to store times
 run_times = []
 n_agents_range = range(500, 5000, 500)
+
 for n_agents in n_agents_range:
     
     # Initialise agents
