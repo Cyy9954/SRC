@@ -10,6 +10,19 @@ import time
 random.seed(0)
 
 def get_distance(x0, y0, x1, y1):
+    """
+    calculate the diatance between x0y0 and x1y1
+
+    Parameters
+    ----------
+    x0 : int
+    y0 : int
+    x1 : int
+    y1 : int
+    Returns
+    -------
+    distance : int
+    """
     # Calculate the difference in the x coordinates.
     dx = x0 - x1
     # Calculate the difference in the y coordinates.
@@ -106,16 +119,18 @@ y_max = 99
 n_agents = 10
 agents = []
 for i in range(n_agents): 
+    #creat coordinates
     agents.append([random.randint(0, 99), random.randint(0, 99)])
 for i in range(n_agents):
     plt.scatter(agents[i][0], agents[i][1], color='black')    
     
 plt.show()    
     
+# Apply movement constraints.
 n_iterations=1000
 for i in range(n_iterations):
     for j in range(len(agents)):
-        
+        # random move
         agents[j] = movement(agents[j])
         if agents[j][0] < x_min:
             agents[j][0] = x_min

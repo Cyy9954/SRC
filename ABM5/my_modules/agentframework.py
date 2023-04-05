@@ -20,6 +20,10 @@ class Agent:
         self.store = 0    
         
     def eat(self):
+        """
+        eat environment variable
+
+        """
         if self.environment[self.y][self.x] >= 10:
             self.environment[self.y][self.x] -= 10
             self.store += 10
@@ -39,8 +43,10 @@ class Agent:
     # Return the string representation of the agent.
         return str(self)
     
+    # Indicates the minimum and maximum limits for movement
     def move(self, x_min, y_min, x_max, y_max):
         rn = random.random()
+        # If the random number is less than 0.5, increase the x-coordinate, otherwise decrease the x-coordinate.
         if rn < 0.5:
             self.x = self.x + 1
         else:

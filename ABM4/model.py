@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Feb 27 23:56:08 2023
-
-@author: 肉松
-"""
-
 import random
 import math
 import matplotlib.pyplot as plt
@@ -16,6 +9,16 @@ import agentframework as af
 random.seed(0)
 
 def get_distance(x0, y0, x1, y1):
+    """
+    calculate the diatance between x0y0 and x1y1
+
+    Parameters
+    ----------
+    x0 : int
+    y0 : int
+    x1 : int
+    y1 : int
+    """
     # Calculate the difference in the x coordinates.
     dx = x0 - x1
     # Calculate the difference in the y coordinates.
@@ -60,15 +63,6 @@ n_agents = 10
 
 #Create a list to store agents
 agents = [af.Agent(i) for i in range(n_agents)]
-
-'''#Create an empty list to store agents
-agents = []
-for i in range(n_agents):
-    # Create an agent
-    agents.append(af.Agent(i))
-    print(agents[i])
-print(agents)
-'''
 
 # Move agents
 for agent in agents:

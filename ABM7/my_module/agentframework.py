@@ -37,7 +37,7 @@ class Agent:
     def __repr__(self):
     # Return the string representation of the agent.
         return str(self)
-     
+    # Indicates the minimum and maximum limits for movement 
     def move(self, x_min, y_min, x_max, y_max):
         rn = random.random()
         if rn < 0.5:
@@ -45,6 +45,7 @@ class Agent:
         else:
             self.x = self.x - 1
         rn = random.random()
+        # If the random number is less than 0.5, increase the x-coordinate, otherwise decrease the x-coordinate.
         if rn < 0.5:
             self.y = self.y + 1
         else:

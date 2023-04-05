@@ -122,7 +122,6 @@ def gen_function():
 
 
 if __name__ == '__main__':
-
     # A variable to store the number of agents
     n_agents = 10
 

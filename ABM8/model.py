@@ -44,16 +44,16 @@ def plot():
     plt.imshow(environment)
     for i in range(n_agents):
         plt.scatter(agents[i].x, agents[i].y, color='black')
-# Plot the coordinate with the largest x red
+        # Plot the coordinate with the largest x red
         lx = max(agents, key=operator.attrgetter('x'))
         plt.scatter(lx.x, lx.y, color='red')
-# Plot the coordinate with the smallest x blue
+        # Plot the coordinate with the smallest x blue
         sx = min(agents, key=operator.attrgetter('x'))
         plt.scatter(sx.x, sx.y, color='blue')
-# Plot the coordinate with the largest y yellow
+        # Plot the coordinate with the largest y yellow
         ly = max(agents, key=operator.attrgetter('y'))
         plt.scatter(ly.x, ly.y, color='yellow')
-# Plot the coordinate with the smallest y green
+        # Plot the coordinate with the smallest y green
         sy = min(agents, key=operator.attrgetter('y'))
         plt.scatter(sy.x, sy.y, color='green')
     global ite
@@ -115,21 +115,15 @@ def gen_function():
         ite = ite + 1
     global data_written
     if data_written == False:
-        # Write data
-        print("write data")
-        io.write_data('../../data/output/out7.txt', environment)
-        imageio.mimsave('../../data/output/out7.gif', images, fps=3)
+        # Set the Write data menu to normal.
+        menu_0.entryconfig("Write data", state="normal")
         data_written = True
 
 def output():
-    global data_written
-    if not data_written:
-        io.write_data('../../data/output/out7.txt', environment)
-        imageio.mimsave('../../data/output/out7.gif', images, fps=3)
-        data_written = True
-        print("Data written.")
-    else:
-        print("Data already written.")
+    # Write data
+    print("write data")
+    io.write_data('../../data/output/out.txt', environment)
+    imageio.mimsave('../../data/output/out.gif', images, fps=3)
 
 
 def run(canvas):

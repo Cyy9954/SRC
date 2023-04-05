@@ -2,6 +2,16 @@
 import math
 
 def get_distance(x0, y0, x1, y1):
+    """
+    calculate the diatance between x0y0 and x1y1
+
+    Parameters
+    ----------
+    x0 : int
+    y0 : int
+    x1 : int
+    y1 : int
+    """
     # Calculate the difference in the x coordinates.
     dx = x0 - x1
     # Calculate the difference in the y coordinates.
